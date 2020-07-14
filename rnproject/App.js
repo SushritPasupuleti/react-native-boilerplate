@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -27,6 +27,10 @@ import {
 import { Button, Snackbar } from 'react-native-paper';
 import { Switch } from 'react-native-paper';
 import Counter from './components/counter';
+import LoginButton from './components/login';
+import LogoutButton from './components/logout';
+import auth from '@react-native-firebase/auth';
+
 const App: () => React$Node = () => {
   const [visible, setVisible] = React.useState(false);
 
@@ -38,38 +42,66 @@ const App: () => React$Node = () => {
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
-  return (
-    <>
-      <View style={styles.container}>
-        <Appbar style={styles.bottom}>
-          <Appbar.Action
-            icon="archive"
-            onPress={() => console.log('Pressed archive')}
-          />
-          <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
-          <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
-          <Appbar.Action
-            icon="delete"
-            onPress={() => console.log('Pressed delete')}
-          />
-        </Appbar>
-        <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button>
-        <Snackbar
-          visible={visible}
-          onDismiss={onDismissSnackBar}
-          action={{
-            label: 'Undo',
-            onPress: () => {
-              // Do something
-            },
-          }}>
-          Hey there! I'm a Snackbar.
-      </Snackbar>
-      <Counter></Counter>
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
+  }, []);
+
+  console.log("Auth Data: ", user)
+
+  if (initializing) return null;
+
+  if (!user) {
+    return (
+      <View>
+        <Text>Login</Text>
+        <LoginButton></LoginButton>
       </View>
-    </>
+    );
+  }
+
+  return (
+    <View style={styles.container}>
+      <Appbar style={styles.bottom}>
+        <Appbar.Action
+          icon="archive"
+          onPress={() => console.log('Pressed archive')}
+        />
+        <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
+        <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
+        <Appbar.Action
+          icon="delete"
+          onPress={() => console.log('Pressed delete')}
+        />
+      </Appbar>
+      {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
+      <Text>Welcome {user.email}</Text>
+      <LogoutButton></LogoutButton>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        action={{
+          label: 'Undo',
+          onPress: () => {
+            // Do something
+          },
+        }}>
+        Hey there! I'm a Snackbar.
+  </Snackbar>
+      <Counter></Counter>
+    </View>
   );
-};
+
+}
 
 const styles = StyleSheet.create({
   container: {
