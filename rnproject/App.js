@@ -76,7 +76,7 @@ const App = () => {
 
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
       <Text>Welcome {user.email}</Text>
-      <LogoutButton style={styles.logout}></LogoutButton>
+      <LogoutButton></LogoutButton>
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
@@ -153,10 +153,6 @@ const styles = StyleSheet.create({
     margin: 20,
     marginBottom: 20,
   },
-  logout: {
-    margin: 20,
-    borderRadius: 125,
-  }
 });
 
 export default App;
