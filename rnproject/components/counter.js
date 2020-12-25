@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import {
@@ -22,16 +22,27 @@ const Counter = (props) => {
 
     return (
         <View>
-            <Text>{"Counter Value " + props.api.count}</Text>
+            <Text
+                style={styles.count}
+            >{"Counter Value " + props.api.count}</Text>
             <Button
                 style={styles.counter}
                 mode="contained"
                 loading={isLoading}
                 onPress={() => {
-                    props.setCount(props.api.count + 1);
-                    Alert.alert('Incrementred Value to ' + String(Number(props.api.count + 1)));
+                    setisLoading(true);
+                    //setTimeout(1000)
+                    props.setCount(props.api.count + 1)
+                    //setisLoading(false);
+                    Alert.alert('Incrementred Value to ' + String(Number(props.api.count + 1)), 'You may now close this', [
+                        {
+                            text: 'Ok',
+                            onPress: () => setisLoading(false)
+                        },
+                    ],
+                        { cancelable: false });
                 }}
-            >Press me</Button>
+            >Increment</Button>
         </View>
     )
 }
@@ -40,6 +51,9 @@ const styles = StyleSheet.create({
     counter: {
         margin: 20,
         borderRadius: 125,
+    },
+    count: {
+        margin: 10
     }
 });
 
