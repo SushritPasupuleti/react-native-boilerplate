@@ -72,39 +72,39 @@ const App = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Appbar.Header>
-        <Appbar.Content title="Firebase + Redux" subtitle="Firedup State" />
-      </Appbar.Header>
-      {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
-      <Text style={styles.greeting}>Welcome {user.email}</Text>
-      <LogoutButton></LogoutButton>
-      <Snackbar
-        visible={visible}
-        onDismiss={onDismissSnackBar}
-        action={{
-          label: 'Undo',
-          onPress: () => {
-            // Do something
-          },
-        }}>
-        Hey there! I'm a Snackbar.
+    <SafeAreaView style={styles.container}>
+        <Appbar.Header>
+          <Appbar.Content title="Firebase + Redux" subtitle="Firedup State" />
+        </Appbar.Header>
+        {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
+        <Text style={styles.greeting}>Welcome {user.email}</Text>
+        <LogoutButton></LogoutButton>
+        <Snackbar
+          visible={visible}
+          onDismiss={onDismissSnackBar}
+          action={{
+            label: 'Undo',
+            onPress: () => {
+              // Do something
+            },
+          }}>
+          Hey there! I'm a Snackbar.
   </Snackbar>
-      <Counter></Counter>
-      <Appbar style={styles.bottom}>
-        <Appbar.Action
-          icon="archive"
-          onPress={() => console.log('Pressed archive')}
-        />
-        <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
-        <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
-        <Appbar.Action icon="magnify" onPress={_handleSearch} />
-        <Appbar.Action
-          icon="delete"
-          onPress={() => console.log('Pressed delete')}
-        />
-      </Appbar>
-    </View>
+        <Counter></Counter>
+        <Appbar style={styles.bottom}>
+          <Appbar.Action
+            icon="archive"
+            onPress={() => console.log('Pressed archive')}
+          />
+          <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
+          <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
+          <Appbar.Action icon="magnify" onPress={_handleSearch} />
+          <Appbar.Action
+            icon="delete"
+            onPress={() => console.log('Pressed delete')}
+          />
+        </Appbar>
+    </SafeAreaView>
   );
 
 }
