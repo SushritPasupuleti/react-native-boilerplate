@@ -31,7 +31,9 @@ import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import auth from '@react-native-firebase/auth';
 
-const App: () => React$Node = () => {
+const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
+
+const App = () => {
   const [visible, setVisible] = React.useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
@@ -56,6 +58,8 @@ const App: () => React$Node = () => {
     return subscriber; // unsubscribe on unmount
   }, []);
 
+  const _handleSearch = () => console.log('Searching');
+
   console.log("Auth Data: ", user)
 
   if (initializing) return null;
@@ -73,18 +77,19 @@ const App: () => React$Node = () => {
     <View style={styles.container}>
       <Appbar style={styles.bottom}>
         <Appbar.Action
-          icon="archive"
+          icon="ab-testing"
           onPress={() => console.log('Pressed archive')}
         />
-        <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
-        <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
+        <Appbar.Action icon="ab-testing" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
+        <Appbar.Action icon="email" onPress={() => console.log('Pressed label')} />
+        <Appbar.Action icon="email" onPress={_handleSearch} />
         <Appbar.Action
-          icon="delete"
+          icon="email"
           onPress={() => console.log('Pressed delete')}
         />
       </Appbar>
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
-      <Text>Welcome {user.email}</Text>
+      <Text>Welcome {user.email} !</Text>
       <LogoutButton></LogoutButton>
       <Snackbar
         visible={visible}

@@ -17,7 +17,14 @@ npm i redux react-redux redux-thunk axios @react-navigation/native @react-naviga
 react-native link react-native-vector-icons react-native-paper
 ```
 
-Getting Signing Certificate: 
+Getting Signing Certificate:
+
 ```bash
 keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.keystore
+```
+
+## Icons setup
+
+```bash
+cd android && ./gradlew clean
 ```
