@@ -31,8 +31,6 @@ import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import auth from '@react-native-firebase/auth';
 
-const MORE_ICON = Platform.OS === 'ios' ? 'dots-horizontal' : 'dots-vertical';
-
 const App = () => {
   const [visible, setVisible] = React.useState(false);
 
@@ -75,22 +73,10 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-      <Appbar style={styles.bottom}>
-        <Appbar.Action
-          icon="ab-testing"
-          onPress={() => console.log('Pressed archive')}
-        />
-        <Appbar.Action icon="ab-testing" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
-        <Appbar.Action icon="email" onPress={() => console.log('Pressed label')} />
-        <Appbar.Action icon="email" onPress={_handleSearch} />
-        <Appbar.Action
-          icon="email"
-          onPress={() => console.log('Pressed delete')}
-        />
-      </Appbar>
+
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
-      <Text>Welcome {user.email} !</Text>
-      <LogoutButton></LogoutButton>
+      <Text>Welcome {user.email}</Text>
+      <LogoutButton style={styles.logout}></LogoutButton>
       <Snackbar
         visible={visible}
         onDismiss={onDismissSnackBar}
@@ -103,6 +89,19 @@ const App = () => {
         Hey there! I'm a Snackbar.
   </Snackbar>
       <Counter></Counter>
+      <Appbar style={styles.bottom}>
+        <Appbar.Action
+          icon="archive"
+          onPress={() => console.log('Pressed archive')}
+        />
+        <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
+        <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
+        <Appbar.Action icon="magnify" onPress={_handleSearch} />
+        <Appbar.Action
+          icon="delete"
+          onPress={() => console.log('Pressed delete')}
+        />
+      </Appbar>
     </View>
   );
 
@@ -149,6 +148,15 @@ const styles = StyleSheet.create({
     paddingRight: 12,
     textAlign: 'right',
   },
+  bottom: {
+    borderRadius: 250,
+    margin: 20,
+    marginBottom: 20,
+  },
+  logout: {
+    margin: 20,
+    borderRadius: 125,
+  }
 });
 
 export default App;

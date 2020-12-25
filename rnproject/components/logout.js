@@ -1,8 +1,9 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Button } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 import auth from '@react-native-firebase/auth';
 
-function logout() {
+const logout = () => {
 
     async function onGoogleButtonPress() {
         auth()
@@ -12,10 +13,18 @@ function logout() {
 
     return (
         <Button
-            title="Sign Out"
+            style={styles.logout}
+            mode="contained"
             onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
-        />
+        >Sign Out!</Button>
     )
 }
+
+const styles = StyleSheet.create({
+    logout: {
+        margin: 20,
+        borderRadius: 125,
+    }
+});
 
 export default logout
