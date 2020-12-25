@@ -75,7 +75,7 @@ const App = () => {
     <View style={styles.container}>
 
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
-      <Text>Welcome {user.email}</Text>
+      <Text style={styles.greeting}>Welcome {user.email}</Text>
       <LogoutButton></LogoutButton>
       <Snackbar
         visible={visible}
@@ -152,6 +152,9 @@ const styles = StyleSheet.create({
     borderRadius: 250,
     margin: 20,
     marginBottom: 20,
+  },
+  greeting: {
+    margin: 10
   },
 });
 
