@@ -73,7 +73,9 @@ const App = () => {
 
   return (
     <View style={styles.container}>
-
+      <Appbar.Header>
+        <Appbar.Content title="Firebase + Redux" subtitle="Firedup State" />
+      </Appbar.Header>
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
       <Text style={styles.greeting}>Welcome {user.email}</Text>
       <LogoutButton></LogoutButton>
