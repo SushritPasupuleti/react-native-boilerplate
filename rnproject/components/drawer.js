@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { FeedStack } from '../stack';
@@ -17,10 +17,12 @@ import {
     TouchableRipple,
     Switch,
 } from 'react-native-paper';
+import auth from '@react-native-firebase/auth';
+import { MaterialCommunityIcons } from 'react-native-vector-icons'
 
 const DrawerStack = createDrawerNavigator();
 
-function DrawerMain() {
+function DrawerMain(props) {
     return (
         <DrawerStack.Navigator drawerContent={() => <DrawerContent />}>
             <DrawerStack.Screen name="Home" component={FeedStack} />
@@ -28,11 +30,117 @@ function DrawerMain() {
     );
 }
 
-function DrawerContent() {
+function DrawerContent(props) {
+    const [initializing, setInitializing] = useState(true);
+    const [user, setUser] = useState();
+  
+    // Handle user state changes
+    function onAuthStateChanged(user) {
+      setUser(user);
+      if (initializing) setInitializing(false);
+    }
+  
+    useEffect(() => {
+      const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+      return subscriber; // unsubscribe on unmount
+    }, []);
+  
+    console.log("Auth Data: ", user)
+  
+    if (initializing) return null;
+
+    if (!user) {
+        return (
+          <View>
+            <Text>Login</Text>
+            <LoginButton></LoginButton>
+          </View>
+        );
+      }
+    
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Drawer content</Text>
+        <DrawerContentScrollView {...props}>
+      <View
+        style={
+          styles.drawerContent
+        }
+      >
+        <View style={styles.userInfoSection}>
+          <Avatar.Image
+            source={{
+              uri:
+                user.photoURL,
+            }}
+            size={50}
+          />
+          <Title style={styles.title}>{user.displayName}</Title>
+          <Caption style={styles.caption}>{user.email}</Caption>
+          <View style={styles.row}>
+            <View style={styles.section}>
+              <Paragraph style={[styles.paragraph, styles.caption]}>
+                202
+              </Paragraph>
+              <Caption style={styles.caption}>Following</Caption>
+            </View>
+            <View style={styles.section}>
+              <Paragraph style={[styles.paragraph, styles.caption]}>
+                159
+              </Paragraph>
+              <Caption style={styles.caption}>Followers</Caption>
+            </View>
+          </View>
         </View>
+        {/* <Drawer.Section style={styles.drawerSection}>
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="account-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Profile"
+            onPress={() => {}}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons name="tune" color={color} size={size} />
+            )}
+            label="Preferences"
+            onPress={() => {}}
+          />
+          <DrawerItem
+            icon={({ color, size }) => (
+              <MaterialCommunityIcons
+                name="bookmark-outline"
+                color={color}
+                size={size}
+              />
+            )}
+            label="Bookmarks"
+            onPress={() => {}}
+          />
+        </Drawer.Section>
+        <Drawer.Section title="Preferences">
+          <TouchableRipple onPress={() => {}}>
+            <View style={styles.preference}>
+              <Text>Dark Theme</Text>
+              <View pointerEvents="none">
+                <Switch value={false} />
+              </View>
+            </View>
+          </TouchableRipple>
+          <TouchableRipple onPress={() => {}}>
+            <View style={styles.preference}>
+              <Text>RTL</Text>
+              <View pointerEvents="none">
+                <Switch value={false} />
+              </View>
+            </View>
+          </TouchableRipple>
+        </Drawer.Section> */}
+      </View>
+    </DrawerContentScrollView>
     );
 }
 
