@@ -15,7 +15,10 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-import { Appbar } from 'react-native-paper';
+import {
+  Title,
+  Appbar
+} from 'react-native-paper';
 
 import {
   Header,
@@ -69,7 +72,9 @@ const App = () => {
   if (!user) {
     return (
       <View>
-        <Text>Login</Text>
+        <View style={styles.loginSection}>
+          <Title style={styles.title}>Login :)</Title>
+        </View>
         <LoginButton></LoginButton>
       </View>
     );
@@ -77,37 +82,37 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-        <Appbar.Header>
-          <Appbar.Content title="Firebase + Redux" subtitle="Firedup State!" />
-        </Appbar.Header>
-        {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
-        <Text style={styles.greeting}>Welcome {user.email}</Text>
-        <LogoutButton></LogoutButton>
-        <Snackbar
-          visible={visible}
-          onDismiss={onDismissSnackBar}
-          action={{
-            label: 'Undo',
-            onPress: () => {
-              // Do something
-            },
-          }}>
-          Hey there! I'm a Snackbar.
+      <Appbar.Header>
+        <Appbar.Content title="Firebase + Redux" subtitle="Firedup State!" />
+      </Appbar.Header>
+      {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
+      <Text style={styles.greeting}>Welcome {user.email}</Text>
+      <LogoutButton></LogoutButton>
+      <Snackbar
+        visible={visible}
+        onDismiss={onDismissSnackBar}
+        action={{
+          label: 'Undo',
+          onPress: () => {
+            // Do something
+          },
+        }}>
+        Hey there! I'm a Snackbar.
   </Snackbar>
-        <Counter></Counter>
-        <Appbar style={styles.bottom}>
-          <Appbar.Action
-            icon="archive"
-            onPress={() => console.log('Pressed archive')}
-          />
-          <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
-          <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
-          <Appbar.Action icon="magnify" onPress={_handleSearch} />
-          <Appbar.Action
-            icon="delete"
-            onPress={() => console.log('Pressed delete')}
-          />
-        </Appbar>
+      <Counter></Counter>
+      <Appbar style={styles.bottom}>
+        <Appbar.Action
+          icon="archive"
+          onPress={() => console.log('Pressed archive')}
+        />
+        <Appbar.Action icon="mail" onPress={() => { console.log('Pressed mail'); onToggleSnackBar() }} />
+        <Appbar.Action icon="label" onPress={() => console.log('Pressed label')} />
+        <Appbar.Action icon="magnify" onPress={_handleSearch} />
+        <Appbar.Action
+          icon="delete"
+          onPress={() => console.log('Pressed delete')}
+        />
+      </Appbar>
     </SafeAreaView>
   );
 
@@ -115,13 +120,24 @@ const App = () => {
 
 function DrawerContainer() {
   return (
-      <Drawer.Navigator drawerContent={() => <DrawerContent />}>
-        <Drawer.Screen name="Home" component={App} />
-      </Drawer.Navigator>
-    );
+    <Drawer.Navigator drawerContent={() => <DrawerContent />}>
+      <Drawer.Screen name="Home" component={App} />
+    </Drawer.Navigator>
+  );
 }
 
 const styles = StyleSheet.create({
+  title: {
+    marginTop: 20,
+    fontWeight: 'bold',
+  },
+  caption: {
+    fontSize: 14,
+    lineHeight: 14,
+  },
+  loginSection: {
+    paddingLeft: 20,
+  },
   container: {
     flex: 1,
     justifyContent: 'space-between',
