@@ -17,7 +17,8 @@ import {
 } from 'react-native';
 import {
   Title,
-  Appbar
+  Appbar,
+  useTheme,
 } from 'react-native-paper';
 
 import {
@@ -34,11 +35,19 @@ import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import auth from '@react-native-firebase/auth';
 import DrawerContent from './components/drawer';
+import { FAB } from 'react-native-paper';
+
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { PreferencesContext } from './context/preferencesContext';
 
 const Drawer = createDrawerNavigator();
 
 const App = (props) => {
+
+  const paperTheme = useTheme();
+  const { rtl, theme, toggleRTL, toggleTheme } = React.useContext(
+    PreferencesContext
+  );
   const [visible, setVisible] = React.useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
@@ -83,7 +92,7 @@ const App = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header>
-        <Appbar.Action icon="menu" onPress={() => {console.log('Pressed label'); props.navigation.toggleDrawer();} }></Appbar.Action>
+        <Appbar.Action icon="menu" onPress={() => { console.log('Pressed label'); props.navigation.toggleDrawer(); }}></Appbar.Action>
         <Appbar.Content title="Firebase + Redux" subtitle="Firedup State!" />
       </Appbar.Header>
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
@@ -100,6 +109,13 @@ const App = (props) => {
         }}>
         Hey there! I'm a Snackbar.
   </Snackbar>
+      <FAB
+        style={styles.fab}
+        small
+        icon="plus"
+        // loading={true}
+        onPress={() => console.log('Pressed')}
+      />
       <Counter></Counter>
       <Appbar style={styles.bottom}>
         <Appbar.Action
@@ -186,6 +202,12 @@ const styles = StyleSheet.create({
   },
   greeting: {
     margin: 10
+  },
+  fab: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
   },
 });
 
