@@ -57,7 +57,9 @@ function DrawerContent(props) {
                 <View style={
                     styles.drawerContent
                 }>
-                    <Text>Login!</Text>
+                    <View style={styles.userInfoSection}>
+                        <Title style={styles.title}>Login :)</Title>
+                    </View>
                     <LoginButton></LoginButton>
                 </View>
             </DrawerContentScrollView>
