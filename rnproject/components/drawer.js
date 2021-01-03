@@ -19,6 +19,8 @@ import {
 } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import LoginButton from './login';
+import LogoutButton from './logout';
 
 const DrawerStack = createDrawerNavigator();
 
@@ -51,8 +53,10 @@ function DrawerContent(props) {
 
     if (!user) {
         return (
-          <View>
-            <Text>Login</Text>
+          <View style={
+            styles.drawerContent
+          }>
+            <Text>Login!</Text>
             <LoginButton></LoginButton>
           </View>
         );
@@ -139,6 +143,7 @@ function DrawerContent(props) {
             </View>
           </TouchableRipple>
         </View>
+        <LogoutButton></LogoutButton>
       </View>
     </DrawerContentScrollView>
     );
