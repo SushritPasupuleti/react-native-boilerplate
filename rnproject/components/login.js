@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { GoogleSignin } from '@react-native-community/google-signin';
 import GServices from './../android/app/google-services.json';
 import { compose } from 'redux';
 import auth from '@react-native-firebase/auth';
+import { Button } from 'react-native-paper';
 
 GoogleSignin.configure({
             webClientId: GServices.client[0].oauth_client[1].client_id,
@@ -29,8 +30,16 @@ export default function GoogleSignInButton() {
 
     return (
         <Button
-            title="Google Sign-In"
+        style={styles.login}
+            mode="contained"
             onPress={() => onGoogleButtonPress().then(() => console.log('Signed in with Google!'))}
-        />
+        >Google Sign-In</Button>
     );
 }
+
+const styles = StyleSheet.create({
+    login: {
+        margin: 20,
+        borderRadius: 125,
+    }
+});
