@@ -9,18 +9,11 @@ export const BottomTabs = () => {
   return (
     <React.Fragment>
       <Tab.Navigator
-        initialRouteName="Home"
+        initialRouteName="Feed"
         backBehavior="initialRoute"
         shifting={true}
         sceneAnimationEnabled={false}
       >
-          <Tab.Screen
-          name="Home"
-          component={App}
-          options={{
-            tabBarIcon: 'home-account',
-          }}
-        />
         <Tab.Screen
           name="Feed"
           component={PlaceholderFeed}
