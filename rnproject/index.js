@@ -9,6 +9,7 @@ import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import { Provider as StoreProvider } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import store from './store';
+import DrawerMain from './components/drawer';
 
 const theme = {
     ...DefaultTheme,
@@ -25,7 +26,7 @@ export default function Main() {
         <StoreProvider store={store}>
             <PaperProvider theme={theme}>
                 <NavigationContainer>
-                    <App />
+                    <DrawerMain />
                 </NavigationContainer>
             </PaperProvider>
         </StoreProvider>

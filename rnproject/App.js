@@ -78,7 +78,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
         <Appbar.Header>
-          <Appbar.Content title="Firebase + Redux" subtitle="Firedup State" />
+          <Appbar.Content title="Firebase + Redux" subtitle="Firedup State!" />
         </Appbar.Header>
         {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
         <Text style={styles.greeting}>Welcome {user.email}</Text>
@@ -172,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DrawerContainer;
+export default App;
