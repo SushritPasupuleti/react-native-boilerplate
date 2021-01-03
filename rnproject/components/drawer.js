@@ -18,7 +18,7 @@ import {
     Switch,
 } from 'react-native-paper';
 import auth from '@react-native-firebase/auth';
-import { MaterialCommunityIcons } from 'react-native-vector-icons'
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DrawerStack = createDrawerNavigator();
 
@@ -90,7 +90,7 @@ function DrawerContent(props) {
             </View>
           </View>
         </View>
-        {/* <Drawer.Section style={styles.drawerSection}>
+        <View style={styles.drawerSection}>
           <DrawerItem
             icon={({ color, size }) => (
               <MaterialCommunityIcons
@@ -120,8 +120,8 @@ function DrawerContent(props) {
             label="Bookmarks"
             onPress={() => {}}
           />
-        </Drawer.Section>
-        <Drawer.Section title="Preferences">
+        </View>
+        <View title="Preferences">
           <TouchableRipple onPress={() => {}}>
             <View style={styles.preference}>
               <Text>Dark Theme</Text>
@@ -138,7 +138,7 @@ function DrawerContent(props) {
               </View>
             </View>
           </TouchableRipple>
-        </Drawer.Section> */}
+        </View>
       </View>
     </DrawerContentScrollView>
     );
