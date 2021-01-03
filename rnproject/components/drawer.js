@@ -35,117 +35,119 @@ function DrawerMain(props) {
 function DrawerContent(props) {
     const [initializing, setInitializing] = useState(true);
     const [user, setUser] = useState();
-  
+
     // Handle user state changes
     function onAuthStateChanged(user) {
-      setUser(user);
-      if (initializing) setInitializing(false);
+        setUser(user);
+        if (initializing) setInitializing(false);
     }
-  
+
     useEffect(() => {
-      const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-      return subscriber; // unsubscribe on unmount
+        const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+        return subscriber; // unsubscribe on unmount
     }, []);
-  
+
     console.log("Auth Data: ", user)
-  
+
     if (initializing) return null;
 
     if (!user) {
         return (
-          <View style={
-            styles.drawerContent
-          }>
-            <Text>Login!</Text>
-            <LoginButton></LoginButton>
-          </View>
+            <DrawerContentScrollView {...props}>
+                <View style={
+                    styles.drawerContent
+                }>
+                    <Text>Login!</Text>
+                    <LoginButton></LoginButton>
+                </View>
+            </DrawerContentScrollView>
         );
-      }
-    
+    }
+
     return (
         <DrawerContentScrollView {...props}>
-      <View
-        style={
-          styles.drawerContent
-        }
-      >
-        <View style={styles.userInfoSection}>
-          <Avatar.Image
-            source={{
-              uri:
-                user.photoURL,
-            }}
-            size={50}
-          />
-          <Title style={styles.title}>{user.displayName}</Title>
-          <Caption style={styles.caption}>{user.email}</Caption>
-          <View style={styles.row}>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                202
+            <View
+                style={
+                    styles.drawerContent
+                }
+            >
+                <View style={styles.userInfoSection}>
+                    <Avatar.Image
+                        source={{
+                            uri:
+                                user.photoURL,
+                        }}
+                        size={50}
+                    />
+                    <Title style={styles.title}>{user.displayName}</Title>
+                    <Caption style={styles.caption}>{user.email}</Caption>
+                    <View style={styles.row}>
+                        <View style={styles.section}>
+                            <Paragraph style={[styles.paragraph, styles.caption]}>
+                                202
               </Paragraph>
-              <Caption style={styles.caption}>Following</Caption>
-            </View>
-            <View style={styles.section}>
-              <Paragraph style={[styles.paragraph, styles.caption]}>
-                159
+                            <Caption style={styles.caption}>Following</Caption>
+                        </View>
+                        <View style={styles.section}>
+                            <Paragraph style={[styles.paragraph, styles.caption]}>
+                                159
               </Paragraph>
-              <Caption style={styles.caption}>Followers</Caption>
+                            <Caption style={styles.caption}>Followers</Caption>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.drawerSection}>
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <MaterialCommunityIcons
+                                name="account-outline"
+                                color={color}
+                                size={size}
+                            />
+                        )}
+                        label="Profile"
+                        onPress={() => { }}
+                    />
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <MaterialCommunityIcons name="tune" color={color} size={size} />
+                        )}
+                        label="Preferences"
+                        onPress={() => { }}
+                    />
+                    <DrawerItem
+                        icon={({ color, size }) => (
+                            <MaterialCommunityIcons
+                                name="bookmark-outline"
+                                color={color}
+                                size={size}
+                            />
+                        )}
+                        label="Bookmarks"
+                        onPress={() => { }}
+                    />
+                </View>
+                <View title="Preferences">
+                    <TouchableRipple onPress={() => { }}>
+                        <View style={styles.preference}>
+                            <Text>Dark Theme</Text>
+                            <View pointerEvents="none">
+                                <Switch value={false} />
+                            </View>
+                        </View>
+                    </TouchableRipple>
+                    <TouchableRipple onPress={() => { }}>
+                        <View style={styles.preference}>
+                            <Text>RTL</Text>
+                            <View pointerEvents="none">
+                                <Switch value={false} />
+                            </View>
+                        </View>
+                    </TouchableRipple>
+                </View>
+                <LogoutButton></LogoutButton>
             </View>
-          </View>
-        </View>
-        <View style={styles.drawerSection}>
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="account-outline"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Profile"
-            onPress={() => {}}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons name="tune" color={color} size={size} />
-            )}
-            label="Preferences"
-            onPress={() => {}}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
-              <MaterialCommunityIcons
-                name="bookmark-outline"
-                color={color}
-                size={size}
-              />
-            )}
-            label="Bookmarks"
-            onPress={() => {}}
-          />
-        </View>
-        <View title="Preferences">
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.preference}>
-              <Text>Dark Theme</Text>
-              <View pointerEvents="none">
-                <Switch value={false} />
-              </View>
-            </View>
-          </TouchableRipple>
-          <TouchableRipple onPress={() => {}}>
-            <View style={styles.preference}>
-              <Text>RTL</Text>
-              <View pointerEvents="none">
-                <Switch value={false} />
-              </View>
-            </View>
-          </TouchableRipple>
-        </View>
-        <LogoutButton></LogoutButton>
-      </View>
-    </DrawerContentScrollView>
+        </DrawerContentScrollView>
     );
 }
 
