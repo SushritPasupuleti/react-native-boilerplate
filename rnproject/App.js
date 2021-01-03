@@ -30,6 +30,10 @@ import Counter from './components/counter';
 import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import auth from '@react-native-firebase/auth';
+import DrawerContent from './components/drawer';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+
+const Drawer = createDrawerNavigator();
 
 const App = () => {
   const [visible, setVisible] = React.useState(false);
@@ -109,6 +113,14 @@ const App = () => {
 
 }
 
+function DrawerContainer() {
+  return (
+      <Drawer.Navigator drawerContent={() => <DrawerContent />}>
+        <Drawer.Screen name="Home" component={App} />
+      </Drawer.Navigator>
+    );
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -160,4 +172,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default DrawerContainer;
