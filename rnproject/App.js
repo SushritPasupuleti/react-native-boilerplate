@@ -38,7 +38,7 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 const Drawer = createDrawerNavigator();
 
-const App = () => {
+const App = (props) => {
   const [visible, setVisible] = React.useState(false);
 
   const onToggleSnackBar = () => setVisible(!visible);
@@ -83,6 +83,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Appbar.Header>
+        <Appbar.Action icon="menu" onPress={() => {console.log('Pressed label'); props.navigation.toggleDrawer();} }></Appbar.Action>
         <Appbar.Content title="Firebase + Redux" subtitle="Firedup State!" />
       </Appbar.Header>
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
