@@ -40,6 +40,8 @@ import { FAB } from 'react-native-paper';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { PreferencesContext } from './context/preferencesContext';
 import store from './store';
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 
 const Drawer = createDrawerNavigator();
 
@@ -59,27 +61,13 @@ const App = (props) => {
 
   const onToggleSwitch = () => setIsSwitchOn(!isSwitchOn);
 
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState();
-
-  // Handle user state changes
-  function onAuthStateChanged(user) {
-    setUser(user);
-    if (initializing) setInitializing(false);
-  }
-
-  useEffect(() => {
-    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-    return subscriber; // unsubscribe on unmount
-  }, []);
-
   const _handleSearch = () => console.log('Searching');
 
-  console.log("Auth Data: ", user)
+  console.log("Auth Data from Redux: ", props.auth.UserAuthData.user)
 
-  if (initializing) return null;
+  // if (initializing) return null;
 
-  if (!user) {
+  if (!props.auth.UserAuthData.user) {
     return (
       <View>
         <View style={styles.loginSection}>
@@ -97,7 +85,7 @@ const App = (props) => {
         <Appbar.Content title="Firebase + Redux" subtitle="Firedup State!" />
       </Appbar.Header>
       {/* <Button onPress={onToggleSnackBar}>{visible ? 'Hide' : 'Show'}</Button> */}
-      <Text style={styles.greeting}>Welcome {user.email}</Text>
+      <Text style={styles.greeting}>Welcome {props.auth.UserAuthData.user.email}</Text>
       <LogoutButton></LogoutButton>
       <Snackbar
         visible={visible}
@@ -134,14 +122,6 @@ const App = (props) => {
     </SafeAreaView>
   );
 
-}
-
-function DrawerContainer() {
-  return (
-    <Drawer.Navigator drawerContent={() => <DrawerContent />}>
-      <Drawer.Screen name="Home" component={App} />
-    </Drawer.Navigator>
-  );
 }
 
 const styles = StyleSheet.create({
@@ -212,4 +192,15 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+App.propTypes = {
+  auth: PropTypes.object.isRequired,
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+})
+
+
+export default connect(mapStateToProps, {
+
+})(App);

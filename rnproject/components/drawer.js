@@ -22,7 +22,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import LoginButton from './login';
 import LogoutButton from './logout';
 import store from './../store';
-import {SAVEAUTHINFO} from './../actions/types';
+import { SETAUTHINFO } from './../actions/types';
 
 const DrawerStack = createDrawerNavigator();
 
@@ -41,8 +41,9 @@ function DrawerContent(props) {
     // Handle user state changes
     function onAuthStateChanged(user) {
         setUser(user);
+        console.log("Adding to Redux", user)
         store.dispatch({
-            type: SAVEAUTHINFO,
+            type: SETAUTHINFO,
             payload: {
                 user
             }
