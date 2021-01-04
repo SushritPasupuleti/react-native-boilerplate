@@ -31,6 +31,7 @@ import {
 import { Button, Snackbar } from 'react-native-paper';
 import { Switch } from 'react-native-paper';
 import Counter from './components/counter';
+import HookCounter from './components/hookCounter';
 import LoginButton from './components/login';
 import LogoutButton from './components/logout';
 import auth from '@react-native-firebase/auth';
@@ -106,6 +107,7 @@ const App = (props) => {
         onPress={() => console.log('Pressed')}
       />
       <Counter></Counter>
+      <HookCounter></HookCounter>
       <Appbar style={styles.bottom}>
         <Appbar.Action
           icon="archive"
