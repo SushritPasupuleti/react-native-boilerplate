@@ -21,6 +21,8 @@ import auth from '@react-native-firebase/auth';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import LoginButton from './login';
 import LogoutButton from './logout';
+import store from './../store';
+import {SAVEAUTHINFO} from './../actions/types';
 
 const DrawerStack = createDrawerNavigator();
 
@@ -39,6 +41,12 @@ function DrawerContent(props) {
     // Handle user state changes
     function onAuthStateChanged(user) {
         setUser(user);
+        store.dispatch({
+            type: SAVEAUTHINFO,
+            payload: {
+                user
+            }
+          })
         if (initializing) setInitializing(false);
     }
 

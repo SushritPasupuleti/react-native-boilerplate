@@ -39,6 +39,7 @@ import { FAB } from 'react-native-paper';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { PreferencesContext } from './context/preferencesContext';
+import store from './store';
 
 const Drawer = createDrawerNavigator();
 
