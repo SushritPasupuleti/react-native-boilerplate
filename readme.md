@@ -39,3 +39,7 @@ project.ext.vectoricons = [
 
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 ```
+
+Option: Manually
+
+- Copy the contents in the Fonts folder to `android/app/src/main/assets/fonts` (note lowercase fonts folder).
