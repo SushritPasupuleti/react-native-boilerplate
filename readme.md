@@ -29,7 +29,7 @@ keytool -list -v -alias androiddebugkey -keystore %USERPROFILE%\.android\debug.k
 cd android && ./gradlew clean
 ```
 
-Add the following to `./rnproject/android/build.gradle`
+Add the following to `./rnproject/android/app/build.gradle`
 
 ```gradle
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
