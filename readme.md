@@ -3,6 +3,17 @@
 ```bash
 npx react-native init AwesomeProject
 ```
+## iOS Specific
+
+```
+brew install cocoapods
+sudo gem install ffi
+brew install watchman
+sudo xcode-select --switch /Applications/Xcode.app
+
+cd ./ios
+pod install
+```
 
 Run
 
